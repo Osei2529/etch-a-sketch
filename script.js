@@ -5,9 +5,14 @@ function createGrid(size) {
     container.textContent = "";
     const cellSize = 960/size;
     for(let i = 0; i< (size * size); i++) {
+        
         const cell = document.createElement("div"); 
+
         cell.addEventListener("mouseover", () => {
-            cell.style.backgroundColor = "black";
+            const r = Math.floor(Math.random()*256);
+            const g = Math.floor(Math.random()*256);
+            const b = Math.floor(Math.random()*256);
+            cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
         });
         
         container.appendChild(cell);
