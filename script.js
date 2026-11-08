@@ -2,23 +2,31 @@ const container = document.querySelector("#container");
 const btn = document.querySelector("button");
 
 function createGrid(size) {
+
     container.textContent = "";
     const cellSize = 960/size;
+
     for(let i = 0; i< (size * size); i++) {
-        
+        let darkness = 0;
+        let r,g,b;
+
         const cell = document.createElement("div"); 
+        cell.classList.add("square");
+        cell.style.width = cell.style.height = `${cellSize}px`;
 
         cell.addEventListener("mouseover", () => {
-            const r = Math.floor(Math.random()*256);
-            const g = Math.floor(Math.random()*256);
-            const b = Math.floor(Math.random()*256);
-            cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-        });
+            if(darkness === 0) {
+                r = Math.floor(Math.random()*256);
+                g = Math.floor(Math.random()*256);
+                b = Math.floor(Math.random()*256);
+            }
         
-        container.appendChild(cell);
-        cell.classList.add("square");
+            if (darkness < 10) darkness++;
+            const factor = 1 - darkness / 10;
+            cell.style.backgroundColor = `rgb(${Math.round(r * factor)}, ${Math.round(g * factor)}, ${Math.round(b * factor)})`;
+        });
 
-        cell.style.width = cell.style.height = `${cellSize}px`;
+        container.appendChild(cell);
     }
 }
 
